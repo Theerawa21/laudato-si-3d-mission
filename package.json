@@ -1,8 +1,8 @@
 {
-  "name": "laudato-si-3d-mission",
+  "name": "laudato-si-mission",
   "version": "1.0.0",
   "private": true,
-  "description": "Local web server and file database for Laudato Si' 3D Mission.",
+  "description": "Local web server and file database for Laudato Si' Mission.",
   "scripts": {
     "build": "node scripts/build-sites-worker.js",
     "start": "node server.js",

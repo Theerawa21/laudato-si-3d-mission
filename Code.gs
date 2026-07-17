@@ -1,10 +1,10 @@
 const SPREADSHEET_ID = '1QhY6qeVED7hSs99vVfg-ABin3Az9RWDW6ua3EJbcj58';
-const SHEET_NAME = 'LaudatoSi3DMission';
+const SHEET_NAME = 'LaudatoSiMission';
 
 function doGet() {
   return HtmlService
     .createHtmlOutputFromFile('Index')
-    .setTitle("Laudato Si' 3D Mission")
+    .setTitle("Laudato Si' Mission")
     .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
 

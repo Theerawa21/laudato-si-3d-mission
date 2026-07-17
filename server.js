@@ -157,7 +157,7 @@ async function handleApi(req, res, url) {
     await ensureDatabase();
     sendJson(res, 200, {
       ok: true,
-      app: "Laudato Si' 3D Mission",
+      app: "Laudato Si' Mission",
       database: {
         jsonl: JSONL_DB,
         csv: CSV_DB
@@ -240,7 +240,7 @@ function listen(port) {
   });
   server.listen(port, () => {
     const address = server.address();
-    console.log(`Laudato Si' 3D Mission is running at http://localhost:${address.port}`);
+    console.log(`Laudato Si' Mission is running at http://localhost:${address.port}`);
     console.log(`Teacher results: http://localhost:${address.port}/teacher-results.html`);
     console.log(`Database files: ${JSONL_DB} and ${CSV_DB}`);
   });

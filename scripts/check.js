@@ -38,7 +38,7 @@ function main() {
   new Function(read('Code.gs'));
 
   const requiredIndexText = [
-    "Laudato Si' 3D Mission",
+    "Laudato Si' Mission",
     'เกมตอบคำถาม',
     'ส่งคะแนนไปฐานข้อมูล',
     'teacher-results.html',

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laudato Si' 3D Mission</title>
+  <title>Laudato Si' Mission</title>
   <style>
     :root {
       --bg: #edf6ef;
@@ -266,8 +266,8 @@
       display: grid;
       place-items: center;
       padding-top: 18px;
-      perspective: 1120px;
-      perspective-origin: 50% 30%;
+      perspective: none;
+      perspective-origin: center;
     }
 
     .world {
@@ -275,8 +275,8 @@
       width: min(1040px, 94vw);
       height: min(720px, calc(100vh - 116px));
       min-height: 560px;
-      transform-style: preserve-3d;
-      transform: rotateX(58deg) rotateZ(-36deg);
+      transform-style: flat;
+      transform: none;
       transition: transform 0.25s ease;
     }
 
@@ -299,7 +299,7 @@
       background: rgba(222, 190, 130, 0.76);
       border: 1px solid rgba(139, 101, 54, 0.18);
       border-radius: 999px;
-      transform: translateZ(4px);
+      transform: none;
       box-shadow: inset 0 0 0 5px rgba(255,255,255,0.18);
     }
 
@@ -322,7 +322,7 @@
       top: 215px;
       width: 430px;
       height: 44px;
-      transform: translateZ(4px) rotateZ(-28deg);
+      transform: rotateZ(-28deg);
     }
 
     .zone {
@@ -331,8 +331,8 @@
       height: 134px;
       border: 1px solid rgba(22, 36, 29, 0.1);
       border-radius: 12px;
-      transform-style: preserve-3d;
-      transform: translateZ(18px);
+      transform-style: flat;
+      transform: none;
       box-shadow: 0 18px 28px rgba(58, 81, 61, 0.18);
     }
 
@@ -342,7 +342,7 @@
       inset: 0;
       border-radius: inherit;
       background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.2));
-      transform: translateZ(8px);
+      transform: none;
       pointer-events: none;
     }
 
@@ -359,7 +359,7 @@
       color: var(--green-dark);
       font-size: 14px;
       font-weight: 900;
-      transform: translateZ(18px) rotateZ(36deg) rotateX(-58deg);
+      transform: none;
       transform-origin: left bottom;
       box-shadow: 0 8px 18px rgba(22,36,29,0.12);
     }
@@ -409,7 +409,8 @@
       border-radius: 0 0 12px 12px;
       background: rgba(102, 122, 98, 0.28);
       transform-origin: top;
-      transform: rotateX(-90deg);
+      display: none;
+      transform: none;
     }
 
     .tree,
@@ -417,8 +418,8 @@
     .lamp,
     .poster-board {
       position: absolute;
-      transform-style: preserve-3d;
-      transform: translateZ(26px);
+      transform-style: flat;
+      transform: none;
     }
 
     .tree {
@@ -435,7 +436,7 @@
       height: 40px;
       border-radius: 4px;
       background: #8a5a2b;
-      transform: translateZ(12px);
+      transform: none;
     }
 
     .tree::after {
@@ -448,7 +449,7 @@
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #9be37e, #2f8d48);
       box-shadow: 0 0 0 6px rgba(47, 141, 72, 0.12);
-      transform: translateZ(22px) rotateZ(36deg) rotateX(-58deg);
+      transform: none;
     }
 
     .tree.t1 { left: 52px; top: 388px; }
@@ -498,7 +499,7 @@
       background:
         linear-gradient(180deg, rgba(255,255,255,0.86), rgba(232,245,235,0.9)),
         repeating-linear-gradient(0deg, transparent 0 12px, rgba(30,122,74,0.18) 12px 14px);
-      transform: translateZ(42px) rotateZ(36deg) rotateX(-58deg);
+      transform: none;
     }
 
     .poster-board.pb1 { left: 484px; top: 450px; }
@@ -513,7 +514,7 @@
       background: var(--coral);
       color: #fff;
       cursor: pointer;
-      transform: translateZ(74px) rotateZ(36deg) rotateX(-58deg);
+      transform: none;
       box-shadow: 0 0 0 0 rgba(230, 101, 78, 0.45), 0 10px 20px rgba(22,36,29,0.24);
       animation: pulse 1.8s ease-in-out infinite;
       font-weight: 900;
@@ -544,8 +545,8 @@
       width: 54px;
       height: 78px;
       z-index: 10;
-      transform-style: preserve-3d;
-      transform: translateZ(86px) rotateZ(36deg) rotateX(-58deg);
+      transform-style: flat;
+      transform: translate(-50%, -50%);
       transition: left 0.12s linear, top 0.12s linear;
       pointer-events: none;
     }
@@ -1185,7 +1186,7 @@
       background:
         linear-gradient(90deg, rgba(255,255,255,0.45) 1px, transparent 1px) 0 0 / 42px 42px,
         linear-gradient(135deg, #c4e0b6, #f7e6b6);
-      transform: translate(-50%, -50%) rotateX(56deg) rotateZ(-35deg);
+      transform: translate(-50%, -50%);
       box-shadow: 0 30px 48px rgba(22,36,29,0.18);
     }
 
@@ -1292,7 +1293,7 @@
       .world {
         width: 860px;
         height: 620px;
-        transform: translateX(-8%) scale(0.72) rotateX(58deg) rotateZ(-36deg);
+        transform: translateX(-8%) scale(0.72);
       }
 
       .control-pad {
@@ -1330,7 +1331,7 @@
       }
 
       .world {
-        transform: translateX(-20%) scale(0.62) rotateX(58deg) rotateZ(-36deg);
+        transform: translateX(-20%) scale(0.62);
       }
 
       .control-pad {
@@ -2713,7 +2714,7 @@
           </svg>
         </div>
         <div>
-          <h1>Laudato Si'<br>3D Mission</h1>
+          <h1>Laudato Si'<br>Mission</h1>
           <p>ภารกิจพิทักษ์บ้านส่วนรวม สำหรับนักเรียนชั้นมัธยมศึกษาปีที่ 6</p>
         </div>
       </div>
@@ -2763,7 +2764,7 @@
         <section class="mission-card">
           <div class="card">
             <h2>แผนที่ภารกิจ</h2>
-            <p>เดินไปยังพื้นที่ 3 มิติ แล้วคลิกจุดภารกิจเพื่อทำด่านตามลำดับ</p>
+            <p>เดินไปยังจุดภารกิจบนแผนที่ แล้วคลิกจุดภารกิจเพื่อทำด่านตามลำดับ</p>
           </div>
           <div class="mission-list" id="missionList"></div>
         </section>
@@ -2775,7 +2776,7 @@
         </section>
       </aside>
 
-      <div class="scene-wrap" aria-label="โรงเรียนจำลอง 3 มิติ">
+      <div class="scene-wrap" aria-label="โรงเรียนจำลองแบบแผนที่">
         <div class="world" id="world">
           <div class="ground"></div>
           <div class="path main"></div>
@@ -2911,7 +2912,7 @@
     <div class="start-card">
       <div class="start-copy">
         <h2>ภารกิจพิทักษ์บ้านส่วนรวม</h2>
-        <p>รับบทเป็นผู้พิทักษ์บ้านส่วนรวม เดินสำรวจโรงเรียนจำลอง 3 มิติ ค้นหาปัญหา วิเคราะห์สาเหตุ ออกแบบทางออก สร้างผลงาน นำเสนอ และเลือกพฤติกรรมที่จะทำจริงในชีวิตประจำวัน</p>
+        <p>รับบทเป็นผู้พิทักษ์บ้านส่วนรวม เดินสำรวจโรงเรียนจำลองแบบแผนที่ ค้นหาปัญหา วิเคราะห์สาเหตุ ออกแบบทางออก สร้างผลงาน นำเสนอ และเลือกพฤติกรรมที่จะทำจริงในชีวิตประจำวัน</p>
         <div class="medal-strip">
           <span class="medal">6 ภารกิจ</span>
           <span class="medal">250 คะแนน</span>
@@ -2939,7 +2940,7 @@
               <input id="playerAlias" type="text" placeholder="เช่น ผู้พิทักษ์ใบไม้">
             </div>
           </div>
-          <button class="btn btn-primary" type="submit">เข้าสู่โรงเรียน 3 มิติ</button>
+          <button class="btn btn-primary" type="submit">เข้าสู่โรงเรียน</button>
         </form>
       </div>
     </div>
@@ -2982,7 +2983,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    const STORAGE_KEY = "laudato-si-3d-mission-v1";
+    const STORAGE_KEY = "laudato-si-mission-v1";
     const MAX_SCORE = 250;
     const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1QhY6qeVED7hSs99vVfg-ABin3Az9RWDW6ua3EJbcj58/edit?usp=sharing";
     const APPS_SCRIPT_WEB_APP_URL = location.href.startsWith("https://script.google.com/")
@@ -3001,7 +3002,7 @@
         location: "ห้องเรียน",
         max: 20,
         medal: "ผู้ตื่นรู้บ้านส่วนรวม",
-        intro: "สำรวจห้องเรียน 3 มิติ แล้วระบุปัญหาสิ่งแวดล้อมที่พบ เช่น ไฟเปิดทิ้งไว้ พัดลมเปิดทิ้งไว้ ขยะตกพื้น หรือการใช้กระดาษสิ้นเปลือง",
+        intro: "สำรวจห้องเรียน แล้วระบุปัญหาสิ่งแวดล้อมที่พบ เช่น ไฟเปิดทิ้งไว้ พัดลมเปิดทิ้งไว้ ขยะตกพื้น หรือการใช้กระดาษสิ้นเปลือง",
         questions: [
           "ปัญหานี้ส่งผลต่อบ้านส่วนรวมอย่างไร",
           "พฤติกรรมใดของมนุษย์ทำให้เกิดปัญหานี้",
@@ -3600,7 +3601,7 @@
     function buildReportText() {
       const score = totalScore();
       const lines = [
-        "รายงานสรุปผลเกม Laudato Si' 3D Mission",
+        "รายงานสรุปผลเกม Laudato Si' Mission",
         "",
         `ชื่อผู้เล่น: ${state.player.name || "-"}`,
         `ห้อง: ${state.player.room || "-"}`,
@@ -3696,7 +3697,7 @@
       const url = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = url;
-      anchor.download = `laudato-si-3d-${(state.player.name || "player").replace(/\s+/g, "-")}.txt`;
+      anchor.download = `laudato-si-report-${(state.player.name || "player").replace(/\s+/g, "-")}.txt`;
       document.body.append(anchor);
       anchor.click();
       anchor.remove();

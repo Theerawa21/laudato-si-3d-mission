@@ -1,6 +1,6 @@
 # ระบบบันทึกผลและลงทะเบียนรายบุคคล
 
-## Laudato Si' 3D Mission
+## Laudato Si' Mission
 
 เอกสารนี้ใช้ประกอบการเชื่อมเกม `index.html` กับ Google Sheet ผ่าน Google Apps Script เพื่อเก็บข้อมูลนักเรียน คะแนน เหรียญ คำตอบ และรายงานสรุปรายบุคคล
 
@@ -29,7 +29,7 @@
 1. เปิดโปรเจกต์ Apps Script ที่ต้องการใช้
 2. วางไฟล์ `Code.gs` จากโฟลเดอร์นี้ลงในโปรเจกต์
 3. สร้างไฟล์ HTML ชื่อ `Index` แล้ววางโค้ดจาก `index.html`
-4. กด Run ฟังก์ชัน `setupSheet` เพื่อสร้างชีต `LaudatoSi3DMission`
+4. กด Run ฟังก์ชัน `setupSheet` เพื่อสร้างชีต `LaudatoSiMission`
 5. Deploy เป็น Web App
 6. ให้นักเรียนเปิด Web App URL เพื่อเล่นเกมและส่งผลคะแนน
 

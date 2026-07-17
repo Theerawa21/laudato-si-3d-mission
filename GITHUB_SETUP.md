@@ -28,7 +28,7 @@ npm test
 
 ```powershell
 git add .
-git commit -m "Prepare Laudato Si 3D Mission web app"
+git commit -m "Prepare Laudato Si Mission web app"
 git branch -M main
 git remote add origin https://github.com/<OWNER>/<REPO>.git
 git push -u origin main

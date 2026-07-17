@@ -215,7 +215,7 @@ async function handleApi(request, env, url) {
 
   if (url.pathname === "/api/health" && request.method === "GET") {
     await ensureDatabase(env);
-    return jsonResponse({ ok: true, app: "Laudato Si' 3D Mission", database: "D1" });
+    return jsonResponse({ ok: true, app: "Laudato Si' Mission", database: "D1" });
   }
 
   if (url.pathname === "/api/submissions" && request.method === "GET") {
