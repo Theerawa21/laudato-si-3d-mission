@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0f5a37">
   <meta name="description" content="Laudato Si’ Mission เกมผจญภัยเพื่อการศึกษา สำรวจโรงเรียนและลงมือดูแลบ้านส่วนรวม">
   <meta property="og:title" content="Laudato Si’ Mission">
@@ -40,6 +40,7 @@
     body {
       margin: 0;
       overflow: hidden;
+      overscroll-behavior: none;
       color: var(--ink);
       background: #93c993;
       font-family: var(--font-ui);
@@ -49,6 +50,7 @@
     }
 
     button, input, select, textarea { font-family: inherit; }
+    button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
     h1, h2, h3, h4, strong { font-family: var(--font-display); }
 
     button:focus-visible {
@@ -508,6 +510,40 @@
       font-weight: 700;
     }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    .quick-navigation {
+      position: fixed;
+      z-index: 89;
+      top: max(10px, env(safe-area-inset-top));
+      left: 10px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quick-navigation[hidden] { display: none !important; }
+
+    .quick-navigation button {
+      min-width: 94px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 0 13px;
+      border: 2px solid rgba(255,255,255,.95);
+      border-radius: 15px;
+      color: var(--green-900);
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 8px 22px rgba(7,48,29,.2);
+      backdrop-filter: blur(14px);
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .quick-navigation .quick-home { color: #fff; background: rgba(15,99,57,.96); }
+    .quick-navigation svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 
     .classroom-scene {
       position: fixed;
@@ -1114,27 +1150,29 @@
 
     @media (max-width: 900px) {
       :root { --rail: 0px; }
+      .game-shell { min-height: 100dvh; }
+      .quick-navigation:not([hidden]) { display: flex; }
       .world { inset: 0 0 80px; background-position: 48% center; }
       .map-player-character { left: 46%; bottom: 165px; width: clamp(120px, 22vw, 180px); }
-      .brand-card { top: 12px; left: 12px; width: 166px; padding: 12px; border-radius: 18px; }
+      .brand-card { top: calc(max(10px, env(safe-area-inset-top)) + 58px); left: 12px; width: 166px; padding: 12px; border-radius: 18px; }
       .brand-card h1 { font-size: 17px; }
       .brand-card p { display: none; }
       .brand-mark { width: 34px; height: 34px; }
-      .side-nav { top: auto; left: 10px; right: 10px; bottom: 9px; width: auto; height: 70px; display: grid; grid-template-columns: repeat(4, 1fr); padding: 7px; border-radius: 20px; }
+      .side-nav { top: auto; left: 10px; right: 10px; bottom: max(8px, env(safe-area-inset-bottom)); width: auto; height: 70px; display: grid; grid-template-columns: repeat(4, 1fr); padding: 7px; border-radius: 20px; }
       .nav-button { min-height: 54px; grid-template-columns: 1fr; place-items: center; gap: 0; padding: 4px; }
       .nav-button:hover { transform: none; }
       .nav-icon { width: 31px; height: 31px; border: 0; background: transparent; }
       .nav-icon svg { width: 22px; height: 22px; }
       .nav-copy strong { font-size: 11px; line-height: 1.25; text-align: center; }
       .nav-copy small { display: none; }
-      .player-card { top: 12px; right: 12px; padding: 6px; }
+      .player-card { top: max(10px, env(safe-area-inset-top)); right: 12px; padding: 6px; }
       .player-copy, .sound-button { display: none; }
       .avatar { width: 38px; height: 38px; }
       .mission-teaser { top: 82px; right: 12px; width: 240px; padding: 13px; }
       .mission-teaser h2 { font-size: 14px; }
       .mission-teaser p { display: none; }
       .primary-button { min-height: 35px; }
-      .progress-hud { left: 12px; right: 12px; bottom: 88px; min-height: 68px; grid-template-columns: 49px 1fr auto; gap: 10px; padding: 8px 12px 8px 8px; border-radius: 20px; }
+      .progress-hud { left: 12px; right: 12px; bottom: calc(86px + env(safe-area-inset-bottom)); min-height: 68px; grid-template-columns: 49px 1fr auto; gap: 10px; padding: 8px 12px 8px 8px; border-radius: 20px; }
       .coin { width: 47px; height: 47px; border-width: 3px; }
       .coin svg { width: 24px; height: 24px; }
       .progress-title { display: none; }
@@ -1147,8 +1185,8 @@
       .hotspot.school { left: 18%; }
       .hotspot.canteen { left: 76%; }
       .toast { bottom: 170px; }
-      .classroom-back { top: 12px; left: 12px; min-height: 44px; padding: 0 12px; }
-      .classroom-hud { top: 12px; right: 12px; padding: 6px; }
+      .classroom-back { display: none; }
+      .classroom-hud { top: max(10px, env(safe-area-inset-top)); right: 10px; padding: 6px; }
       .classroom-score { min-width: auto; padding: 5px 9px; font-size: 11px; }
       .classroom-score b { font-size: 19px; }
       .wake-medal { padding-right: 5px; }
@@ -1165,15 +1203,17 @@
       .creator-dialog { left: 50%; width: calc(100vw - 30px); padding: 20px; }
       .pitch-dialog { left: 50%; width: calc(100vw - 30px); padding: 20px; }
       .quest-dialog { left: 50%; width: calc(100vw - 30px); padding: 20px; }
-      .mission-dialog { top: auto; bottom: 16px; padding: 18px; transform: translateX(-50%); }
+      .mission-dialog { top: auto; bottom: calc(12px + env(safe-area-inset-bottom)); padding: 18px; transform: translateX(-50%); }
       .mission-dialog h2 { font-size: 20px; }
       .mission-question { font-size: 16px; }
+      .drawer { bottom: calc(86px + env(safe-area-inset-bottom)); max-height: calc(100dvh - 98px - env(safe-area-inset-bottom)); }
+      .registration-screen, .ending-screen { padding-top: calc(72px + env(safe-area-inset-top)); padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
     }
 
     @media (max-width: 560px) {
       .world { background-position: 51% center; }
       .map-player-character { left: 43%; bottom: 164px; width: 112px; opacity: .96; }
-      .mission-teaser { top: 72px; left: 12px; right: 12px; width: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      .mission-teaser { top: calc(max(10px, env(safe-area-inset-top)) + 118px); left: 12px; right: 12px; width: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
       .mission-teaser .eyeline { margin: 0 0 2px; }
       .mission-teaser h2 { font-size: 13px; }
       .hotspot.school { left: 7%; top: 34%; }
@@ -1190,13 +1230,11 @@
       .creative-world { background-size: auto 67%; background-position: 47% top; background-repeat: no-repeat; }
       .pitch-world { background-size: auto 68%; background-position: 42% top; background-repeat: no-repeat; }
       .quest-world { background-size: auto 66%; background-position: 38% top; background-repeat: no-repeat; }
-      .classroom-back span { display: none; }
-      .classroom-back { width: 44px; padding: 0; justify-content: center; }
       .wake-medal span:last-child { display: none; }
-      .mission-dialog { bottom: 10px; width: calc(100vw - 20px); padding: 15px; border-radius: 19px; }
+      .mission-dialog { bottom: calc(8px + env(safe-area-inset-bottom)); width: calc(100vw - 20px); padding: 15px; border-radius: 19px; }
       .mission-dialog-head { margin-bottom: 8px; }
       .issue-context { display: none; }
-      .answer-option { min-height: 42px; padding: 8px 10px; font-size: 13px; }
+      .answer-option { min-height: 48px; padding: 9px 10px; font-size: 13px; }
       .mission-dialog-footer { margin-top: 10px; }
       .issue-marker.light { left: 12%; top: 18%; }
       .issue-marker.fan { right: 9%; top: 26%; }
@@ -1204,7 +1242,7 @@
       .cafeteria-marker.cup { left: 8%; top: 20%; }
       .cafeteria-marker.overflow { right: 7%; top: 38%; }
       .cafeteria-marker.mixed { right: 9%; bottom: 42%; }
-      .solution-dialog { top: auto; bottom: 10px; width: calc(100vw - 20px); padding: 14px; border-radius: 20px; transform: translateX(-50%); }
+      .solution-dialog { top: auto; bottom: calc(8px + env(safe-area-inset-bottom)); width: calc(100vw - 20px); padding: 14px; border-radius: 20px; transform: translateX(-50%); }
       .solution-dialog h2 { font-size: 18px; line-height: 1.25; text-align: left; }
       .solution-lead { display: none; }
       .solution-choices { gap: 6px; margin-top: 10px; }
@@ -1212,7 +1250,7 @@
       .solution-choice-icon { width: 27px; height: 27px; border-radius: 9px; }
       .solution-choice svg { width: 17px; height: 17px; }
       .solution-input-wrap { margin-top: 9px; }
-      .solution-textarea { min-height: 70px; max-height: 82px; padding: 9px 10px; font-size: 12px; }
+      .solution-textarea { min-height: 70px; max-height: 96px; padding: 9px 10px; font-size: 16px; }
       .rubric-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 8px; }
       .rubric-card { padding: 6px 8px; border-radius: 11px; }
       .rubric-card-head { min-height: 26px; gap: 6px; }
@@ -1223,37 +1261,37 @@
       .rubric-dot { width: 5px; height: 5px; }
       .solution-footer { margin-top: 8px; }
       .solution-feedback { font-size: 10px; }
-      .solution-submit { min-height: 38px; padding: 0 12px; font-size: 12px; }
-      .creator-dialog { top: auto; bottom: 10px; width: calc(100vw - 20px); padding: 13px; border-radius: 20px; transform: translateX(-50%); }
+      .solution-submit { min-height: 44px; padding: 0 12px; font-size: 12px; }
+      .creator-dialog { top: auto; bottom: calc(8px + env(safe-area-inset-bottom)); width: calc(100vw - 20px); padding: 13px; border-radius: 20px; transform: translateX(-50%); }
       .creator-dialog-head { gap: 8px; }
       .creator-dialog h2 { font-size: 16px; line-height: 1.22; }
       .creator-progress { padding: 5px 7px; font-size: 10px; white-space: nowrap; }
       .creator-lead { display: none; }
       .creator-form-grid { gap: 7px 8px; margin-top: 9px; }
       .creator-field label { margin-bottom: 3px; font-size: 10px; }
-      .creator-field input { height: 36px; padding: 0 8px; font-size: 12px; }
-      .creator-field textarea { min-height: 49px; max-height: 60px; padding: 6px 8px; font-size: 11px; }
+      .creator-field input { height: 44px; padding: 0 9px; font-size: 16px; }
+      .creator-field textarea { min-height: 58px; max-height: 88px; padding: 7px 9px; font-size: 16px; }
       .creator-footer { gap: 8px; margin-top: 8px; }
       .creator-feedback { font-size: 10px; }
-      .creator-submit { min-width: 128px; min-height: 38px; padding: 0 10px; font-size: 12px; }
-      .pitch-dialog { top: auto; bottom: 10px; width: calc(100vw - 20px); padding: 13px; border-radius: 20px; transform: translateX(-50%); }
+      .creator-submit { min-width: 128px; min-height: 44px; padding: 0 10px; font-size: 12px; }
+      .pitch-dialog { top: auto; bottom: calc(8px + env(safe-area-inset-bottom)); width: calc(100vw - 20px); padding: 13px; border-radius: 20px; transform: translateX(-50%); }
       .pitch-dialog h2 { font-size: 18px; line-height: 1.2; }
-      .pitch-submit { min-width: 128px; min-height: 38px; padding: 0 10px; font-size: 12px; }
-      .quest-dialog { top: auto; bottom: 10px; width: calc(100vw - 20px); padding: 13px; border-radius: 20px; transform: translateX(-50%); }
+      .pitch-submit { min-width: 128px; min-height: 44px; padding: 0 10px; font-size: 12px; }
+      .quest-dialog { top: auto; bottom: calc(8px + env(safe-area-inset-bottom)); width: calc(100vw - 20px); padding: 13px; border-radius: 20px; transform: translateX(-50%); }
       .quest-dialog h2 { font-size: 18px; line-height: 1.2; }
       .promise-label { margin: 7px 0 4px; font-size: 14px; }
-      .promise-textarea { min-height: 66px; max-height: 78px; padding: 8px 9px; font-size: 12px; }
+      .promise-textarea { min-height: 72px; max-height: 100px; padding: 8px 9px; font-size: 16px; }
       .quest-actions { grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 8px; }
       .quest-action { min-height: 45px; justify-content: flex-start; padding: 5px 7px; border-radius: 11px; font-size: 11px; line-height: 1.3; }
       .quest-action-icon { width: 28px; height: 28px; border-radius: 8px; }
       .quest-action svg { width: 18px; height: 18px; }
-      .quest-submit { min-width: 138px; min-height: 38px; padding: 0 10px; font-size: 12px; }
+      .quest-submit { min-width: 138px; min-height: 44px; padding: 0 10px; font-size: 12px; }
 
       .solution-dialog,
       .creator-dialog,
       .pitch-dialog,
       .quest-dialog,
-      .mission-dialog { max-height: calc(100svh - 20px); overflow-y: auto; }
+      .mission-dialog { max-height: calc(100dvh - 76px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
     }
 
     .screen-layer {
@@ -1698,6 +1736,30 @@
       .certificate-card p { font-size: 15px; }
     }
 
+    @media (max-width: 420px) {
+      .quick-navigation { gap: 6px; }
+      .quick-navigation button { min-width: 86px; min-height: 46px; padding: 0 10px; font-size: 12px; }
+      .quick-navigation svg { width: 18px; height: 18px; }
+      .brand-card { width: 150px; }
+      .mission-teaser { top: calc(max(10px, env(safe-area-inset-top)) + 112px); }
+      .screen-layer { padding-left: 10px; padding-right: 10px; }
+      .registration-panel { width: 100%; gap: 13px; padding: 20px 14px 16px; border-radius: 22px; }
+      .registration-panel h2 { font-size: 28px; }
+      .registration-panel h2::after { margin-top: 10px; }
+      .registration-form { gap: 9px; }
+      .registration-field { grid-template-columns: 1fr; gap: 4px; }
+      .registration-field input, .registration-field select { height: 48px; font-size: 16px; }
+      .character-option { min-height: 62px; font-size: 12px; }
+      .registration-submit { min-height: 50px; margin: 5px 0 0; }
+      .registration-preview { height: 155px; }
+      .ending-panel { width: 100%; padding-left: 10px; padding-right: 10px; }
+      .ending-level h3 { font-size: 21px; }
+      .ending-actions { gap: 8px; }
+      .side-nav { left: 6px; right: 6px; padding: 6px 4px; }
+      .nav-copy strong { font-size: 10px; }
+      .progress-hud { left: 8px; right: 8px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
     }
@@ -1713,6 +1775,7 @@
     <symbol id="i-volume" viewBox="0 0 24 24"><path d="M5 9v6h4l5 4V5L9 9H5Z"/><path d="M17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
     <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6M9 12h11"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"/><path d="M5.5 9.5V21h13V9.5M9 21v-7h6v7"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
     <symbol id="i-recycle" viewBox="0 0 24 24"><path d="m9 4 3-2 3 5M15 7h3.5l2 3.5M20.5 10.5l-1 3-5.5-.5M14 18l-2 3-4-1M8 20l-2-3 3-4M4 14l-1-3.5L5.5 7M5.5 7 9 8"/></symbol>
     <symbol id="i-tree" viewBox="0 0 24 24"><path d="M12 22v-7M8 22h8M12 15C7 15 5 12.5 6.5 9.5c-2-3.5.8-6.5 4-5.7C12 1 16 2 16.2 5c3.3.2 4.2 4.7 1.3 6.1C17 13.5 15 15 12 15Z"/></symbol>
@@ -1726,6 +1789,11 @@
     <symbol id="i-bulb-off" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M8.5 14.5C7 13.4 6 11.6 6 9.5A6 6 0 0 1 15.9 5M18 8a6 6 0 0 1-2.5 6.5L15 16H9"/><path d="M3 3l18 18"/></symbol>
     <symbol id="i-shield-globe" viewBox="0 0 24 24"><path d="M12 2.5c2.8 2 5.6 2.7 8 2.7v6.2c0 5.1-3.3 8.4-8 10.1-4.7-1.7-8-5-8-10.1V5.2c2.4 0 5.2-.7 8-2.7Z"/><circle cx="12" cy="11.5" r="5"/><path d="M7 11.5h10M12 6.5c1.6 1.5 2.2 3.1 2.2 5s-.6 3.5-2.2 5M12 6.5c-1.6 1.5-2.2 3.1-2.2 5s.6 3.5 2.2 5"/></symbol>
   </svg>
+
+  <nav class="quick-navigation" id="quickNavigation" aria-label="การนำทางด่วน" hidden>
+    <button id="quickBackButton" type="button"><svg aria-hidden="true"><use href="#i-arrow-left"></use></svg><span>ย้อนกลับ</span></button>
+    <button class="quick-home" id="quickHomeButton" type="button"><svg aria-hidden="true"><use href="#i-home"></use></svg><span>หน้าหลัก</span></button>
+  </nav>
 
   <section class="screen-layer start-screen show" id="startScreen" aria-hidden="false" aria-labelledby="startTitle">
     <div class="start-content">
@@ -2296,6 +2364,58 @@
         screen.classList.toggle("show", visible);
         screen.setAttribute("aria-hidden", String(!visible));
       });
+      updateQuickNavigation();
+    }
+
+    function updateQuickNavigation() {
+      const navigation = document.querySelector("#quickNavigation");
+      navigation.hidden = document.querySelector("#startScreen").classList.contains("show");
+    }
+
+    function navigateBack() {
+      if (document.querySelector("#certificateModal").classList.contains("show")) {
+        toggleCertificate(false);
+      } else if (document.querySelector("#drawer").classList.contains("show")) {
+        closeDrawer();
+      } else if (document.querySelector("#questScene").classList.contains("show")) {
+        closeQuest();
+      } else if (document.querySelector("#pitchScene").classList.contains("show")) {
+        closePitch();
+      } else if (document.querySelector("#creativeScene").classList.contains("show")) {
+        closeCreative();
+      } else if (document.querySelector("#gardenScene").classList.contains("show")) {
+        closeGarden();
+      } else if (document.querySelector("#cafeteriaScene").classList.contains("show")) {
+        closeCafeteria();
+      } else if (document.querySelector("#classroomScene").classList.contains("show")) {
+        closeClassroom();
+      } else if (document.querySelector("#registrationScreen").classList.contains("show")) {
+        setScreen("startScreen");
+      } else if (document.querySelector("#endingScreen").classList.contains("show")) {
+        setScreen("");
+      } else {
+        setScreen("startScreen");
+      }
+    }
+
+    function navigateHome() {
+      closeDrawer();
+      ["classroomScene", "cafeteriaScene", "gardenScene", "creativeScene", "pitchScene", "questScene"].forEach((id) => {
+        const scene = document.querySelector(`#${id}`);
+        scene.classList.remove("show");
+        scene.setAttribute("aria-hidden", "true");
+      });
+      const certificate = document.querySelector("#certificateModal");
+      certificate.classList.remove("show");
+      certificate.setAttribute("aria-hidden", "true");
+      setScreen("startScreen");
+      requestAnimationFrame(() => document.querySelector("#startGameButton").focus());
+    }
+
+    function sceneReturnFocus(desktopButtonId) {
+      return window.matchMedia("(max-width: 900px)").matches
+        ? document.querySelector("#quickBackButton")
+        : document.querySelector(`#${desktopButtonId}`);
     }
 
     function openRegistration() {
@@ -2568,7 +2688,7 @@
       renderGarden();
       document.querySelector("#gardenScene").classList.add("show");
       document.querySelector("#gardenScene").setAttribute("aria-hidden", "false");
-      requestAnimationFrame(() => (state.gardenSubmitted ? document.querySelector("#gardenBack") : document.querySelector("#gardenIdea")).focus());
+      requestAnimationFrame(() => (state.gardenSubmitted ? sceneReturnFocus("gardenBack") : document.querySelector("#gardenIdea")).focus());
     }
 
     function closeGarden() {
@@ -2581,7 +2701,7 @@
       renderCreative();
       document.querySelector("#creativeScene").classList.add("show");
       document.querySelector("#creativeScene").setAttribute("aria-hidden", "false");
-      requestAnimationFrame(() => (state.creatorLaunched ? document.querySelector("#creativeBack") : document.querySelector("#creatorTitle")).focus());
+      requestAnimationFrame(() => (state.creatorLaunched ? sceneReturnFocus("creativeBack") : document.querySelector("#creatorTitle")).focus());
     }
 
     function closeCreative() {
@@ -2594,7 +2714,7 @@
       renderPitch();
       document.querySelector("#pitchScene").classList.add("show");
       document.querySelector("#pitchScene").setAttribute("aria-hidden", "false");
-      requestAnimationFrame(() => (state.pitchPresented ? document.querySelector("#pitchBack") : document.querySelector("#pitchProblem")).focus());
+      requestAnimationFrame(() => (state.pitchPresented ? sceneReturnFocus("pitchBack") : document.querySelector("#pitchProblem")).focus());
     }
 
     function closePitch() {
@@ -2607,7 +2727,7 @@
       renderQuest();
       document.querySelector("#questScene").classList.add("show");
       document.querySelector("#questScene").setAttribute("aria-hidden", "false");
-      requestAnimationFrame(() => (state.questCommitted ? document.querySelector("#questBack") : document.querySelector("#questPromise")).focus());
+      requestAnimationFrame(() => (state.questCommitted ? sceneReturnFocus("questBack") : document.querySelector("#questPromise")).focus());
     }
 
     function closeQuest() {
@@ -3026,6 +3146,8 @@
     });
     document.querySelector("#questForm").addEventListener("submit", submitQuest);
     document.querySelector("#startGameButton").addEventListener("click", openRegistration);
+    document.querySelector("#quickBackButton").addEventListener("click", navigateBack);
+    document.querySelector("#quickHomeButton").addEventListener("click", navigateHome);
     document.querySelector("#registrationForm").addEventListener("submit", submitRegistration);
     document.querySelectorAll("[data-character]").forEach((button) => {
       button.addEventListener("click", () => selectPlayerCharacter(button.dataset.character));
@@ -3064,6 +3186,7 @@
       }
     });
 
+    updateQuickNavigation();
     renderCharacterSelection();
     renderProgress();
     renderClassroom();
