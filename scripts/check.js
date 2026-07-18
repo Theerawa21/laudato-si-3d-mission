@@ -31,6 +31,7 @@ function checkNodeFile(file) {
 function main() {
   const indexHtml = read('index.html');
   const teacherHtml = read('teacher-results.html');
+  const workerBuild = read('scripts/build-sites-worker.js');
 
   const indexScripts = checkInlineScripts('index.html');
   const teacherScripts = checkInlineScripts('teacher-results.html');
@@ -126,6 +127,7 @@ function main() {
   assert(fs.existsSync('assets/og-community-gate.jpg'), 'assets/og-community-gate.jpg: missing');
   assert(fs.existsSync('assets/main-menu-school.jpg'), 'assets/main-menu-school.jpg: missing');
   assert(fs.existsSync('assets/female-student.png'), 'assets/female-student.png: missing');
+  assert(workerBuild.includes('/assets/female-student.png'), 'scripts/build-sites-worker.js: female student route missing');
   assert(fs.existsSync('assets/healed-world.jpg'), 'assets/healed-world.jpg: missing');
   assert(fs.existsSync('assets/og-main-menu.jpg'), 'assets/og-main-menu.jpg: missing');
 
