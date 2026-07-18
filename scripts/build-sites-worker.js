@@ -32,6 +32,7 @@ const communityGateOgJpg = fs.readFileSync(path.join(ROOT, "assets", "og-communi
 const mainMenuSchoolJpg = fs.readFileSync(path.join(ROOT, "assets", "main-menu-school.jpg")).toString("base64");
 const studentPreviewJpg = fs.readFileSync(path.join(ROOT, "assets", "student-preview.jpg")).toString("base64");
 const femaleStudentPng = fs.readFileSync(path.join(ROOT, "assets", "female-student.png")).toString("base64");
+const maleStudentPng = fs.readFileSync(path.join(ROOT, "assets", "male-student.png")).toString("base64");
 const healedWorldJpg = fs.readFileSync(path.join(ROOT, "assets", "healed-world.jpg")).toString("base64");
 const mainMenuOgJpg = fs.readFileSync(path.join(ROOT, "assets", "og-main-menu.jpg")).toString("base64");
 
@@ -54,6 +55,7 @@ const COMMUNITY_GATE_OG_JPG = __COMMUNITY_GATE_OG_JPG__;
 const MAIN_MENU_SCHOOL_JPG = __MAIN_MENU_SCHOOL_JPG__;
 const STUDENT_PREVIEW_JPG = __STUDENT_PREVIEW_JPG__;
 const FEMALE_STUDENT_PNG = __FEMALE_STUDENT_PNG__;
+const MALE_STUDENT_PNG = __MALE_STUDENT_PNG__;
 const HEALED_WORLD_JPG = __HEALED_WORLD_JPG__;
 const MAIN_MENU_OG_JPG = __MAIN_MENU_OG_JPG__;
 
@@ -382,6 +384,10 @@ export default {
       return imageResponse(FEMALE_STUDENT_PNG, "image/png");
     }
 
+    if (url.pathname === "/assets/male-student.png") {
+      return imageResponse(MALE_STUDENT_PNG, "image/png");
+    }
+
     if (url.pathname === "/assets/healed-world.jpg") {
       return imageResponse(HEALED_WORLD_JPG, "image/jpeg");
     }
@@ -418,6 +424,7 @@ const worker = runtime
   .replace("__MAIN_MENU_SCHOOL_JPG__", JSON.stringify(mainMenuSchoolJpg))
   .replace("__STUDENT_PREVIEW_JPG__", JSON.stringify(studentPreviewJpg))
   .replace("__FEMALE_STUDENT_PNG__", JSON.stringify(femaleStudentPng))
+  .replace("__MALE_STUDENT_PNG__", JSON.stringify(maleStudentPng))
   .replace("__HEALED_WORLD_JPG__", JSON.stringify(healedWorldJpg))
   .replace("__MAIN_MENU_OG_JPG__", JSON.stringify(mainMenuOgJpg));
 

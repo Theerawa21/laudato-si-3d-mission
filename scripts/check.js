@@ -93,6 +93,11 @@ function main() {
     'เลขที่',
     'ยืนยัน',
     '/assets/female-student.png',
+    '/assets/male-student.png',
+    'นักเรียนหญิง',
+    'นักเรียนชาย',
+    'data-character="female"',
+    'data-character="male"',
     '/assets/healed-world.jpg',
     'ภารกิจสำเร็จ',
     'คะแนนรวม: <strong>250</strong>',
@@ -128,6 +133,8 @@ function main() {
   assert(fs.existsSync('assets/main-menu-school.jpg'), 'assets/main-menu-school.jpg: missing');
   assert(fs.existsSync('assets/female-student.png'), 'assets/female-student.png: missing');
   assert(workerBuild.includes('/assets/female-student.png'), 'scripts/build-sites-worker.js: female student route missing');
+  assert(fs.existsSync('assets/male-student.png'), 'assets/male-student.png: missing');
+  assert(workerBuild.includes('/assets/male-student.png'), 'scripts/build-sites-worker.js: male student route missing');
   assert(fs.existsSync('assets/healed-world.jpg'), 'assets/healed-world.jpg: missing');
   assert(fs.existsSync('assets/og-main-menu.jpg'), 'assets/og-main-menu.jpg: missing');
 

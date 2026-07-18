@@ -1404,7 +1404,8 @@
 
     .registration-field { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 12px; }
 
-    .registration-field label { color: #123f7f; font-size: 19px; font-weight: 800; }
+    .registration-field label,
+    .character-field-label { color: #123f7f; font-size: 19px; font-weight: 800; }
 
     .registration-field input,
     .registration-field select {
@@ -1424,6 +1425,61 @@
 
     .registration-field input:focus,
     .registration-field select:focus { border-color: #1b8dcb; box-shadow: 0 0 0 4px rgba(56,157,220,.16); }
+
+    .character-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .character-option {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 6px 9px;
+      border: 2px solid #a8cce1;
+      border-radius: 16px;
+      color: #17492e;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 6px 15px rgba(24,91,128,.08);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+
+    .character-option:hover { transform: translateY(-2px); border-color: #55a979; }
+    .character-option:focus-visible { outline: 4px solid rgba(56,157,220,.22); outline-offset: 2px; }
+    .character-option[aria-pressed="true"] {
+      border-color: #178a50;
+      background: #e9f8ed;
+      box-shadow: 0 0 0 3px rgba(42,165,96,.15), 0 8px 18px rgba(18,112,65,.13);
+    }
+
+    .character-option[aria-pressed="true"]::after {
+      content: "✓";
+      width: 21px;
+      height: 21px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      color: #fff;
+      background: #178a50;
+      font-size: 13px;
+    }
+
+    .character-thumb {
+      width: 43px;
+      height: 58px;
+      flex: 0 0 auto;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 4px rgba(30,79,48,.18));
+    }
 
     .registration-submit {
       min-height: 62px;
@@ -1614,8 +1670,12 @@
       .registration-panel h2::after { margin-top: 13px; }
       .registration-form { gap: 11px; }
       .registration-field { grid-template-columns: 67px 1fr; gap: 8px; }
-      .registration-field label { font-size: 15px; }
+      .registration-field label, .character-field-label { font-size: 15px; }
       .registration-field input, .registration-field select { height: 48px; padding: 0 11px; font-size: 14px; border-radius: 13px; }
+      .character-options { gap: 7px; }
+      .character-option { min-height: 58px; gap: 4px; padding: 4px 5px; border-radius: 13px; font-size: 12px; }
+      .character-option[aria-pressed="true"]::after { width: 18px; height: 18px; font-size: 11px; }
+      .character-thumb { width: 30px; height: 45px; }
       .registration-submit { min-height: 52px; margin: 8px 0 0 75px; font-size: 18px; }
       .registration-preview { height: 220px; min-height: 0; max-height: 230px; border: 0; border-top: 1px solid rgba(113,171,203,.42); border-radius: 18px; }
       .registration-preview img { object-position: center; }
@@ -1695,10 +1755,23 @@
           <label for="playerNumber">เลขที่</label>
           <input id="playerNumber" name="number" type="number" inputmode="numeric" min="1" max="99" required>
         </div>
+        <div class="registration-field">
+          <span class="character-field-label" id="characterLabel">ตัวละคร</span>
+          <div class="character-options" role="group" aria-labelledby="characterLabel">
+            <button class="character-option" type="button" data-character="female" aria-pressed="true">
+              <img class="character-thumb" src="/assets/female-student.png" alt="">
+              <span>นักเรียนหญิง</span>
+            </button>
+            <button class="character-option" type="button" data-character="male" aria-pressed="false">
+              <img class="character-thumb" src="/assets/male-student.png" alt="">
+              <span>นักเรียนชาย</span>
+            </button>
+          </div>
+        </div>
         <button class="registration-submit" type="submit">ยืนยัน</button>
       </form>
       <div class="registration-preview" aria-label="ตัวอย่างตัวละครนักเรียนมัธยมปลาย">
-        <img src="/assets/female-student.png" alt="ตัวละครนักเรียนหญิงมัธยมปลายในชุดนักเรียน สะพายกระเป๋ารักษ์โลกสีเขียว">
+        <img id="registrationCharacterPreview" src="/assets/female-student.png" alt="ตัวละครนักเรียนหญิงมัธยมปลายในชุดนักเรียน สะพายกระเป๋ารักษ์โลกสีเขียว">
       </div>
     </div>
   </section>
@@ -1745,8 +1818,8 @@
 
   <main class="game-shell">
     <div class="world" aria-label="แผนที่โรงเรียนในมุมมองแบบ isometric"></div>
-    <div class="map-player-character" aria-label="ตัวละครผู้เล่น นักเรียนหญิงผู้พิทักษ์บ้านส่วนรวม">
-      <img src="/assets/female-student.png" alt="นักเรียนหญิงในชุดนักเรียนสะพายกระเป๋าสีเขียว">
+    <div class="map-player-character" id="mapPlayerCharacter" aria-label="ตัวละครผู้เล่น นักเรียนหญิงผู้พิทักษ์บ้านส่วนรวม">
+      <img id="mapPlayerCharacterImage" src="/assets/female-student.png" alt="นักเรียนหญิงในชุดนักเรียนสะพายกระเป๋าสีเขียว">
     </div>
 
     <header class="brand-card">
@@ -1777,7 +1850,7 @@
     </nav>
 
     <section class="player-card" aria-label="ข้อมูลผู้เล่น">
-      <span class="avatar" aria-hidden="true"></span>
+      <span class="avatar" id="playerAvatar" aria-hidden="true"></span>
       <span class="player-copy"><strong>ผู้พิทักษ์รุ่นใหม่</strong><small>ระดับ Green Explorer</small></span>
       <button class="sound-button" type="button" id="soundButton" aria-label="เปิดหรือปิดเสียง" aria-pressed="false"><span class="icon"><svg><use href="#i-volume"></use></svg></span></button>
     </section>
@@ -2124,6 +2197,21 @@
       }
     };
 
+    const characterProfiles = {
+      female: {
+        src: "/assets/female-student.png",
+        label: "นักเรียนหญิง",
+        previewAlt: "ตัวละครนักเรียนหญิงมัธยมปลายในชุดนักเรียน สะพายกระเป๋ารักษ์โลกสีเขียว",
+        mapAlt: "นักเรียนหญิงในชุดนักเรียนสะพายกระเป๋าสีเขียว"
+      },
+      male: {
+        src: "/assets/male-student.png",
+        label: "นักเรียนชาย",
+        previewAlt: "ตัวละครนักเรียนชายมัธยมปลายในชุดนักเรียน สะพายกระเป๋ารักษ์โลกสีเขียว",
+        mapAlt: "นักเรียนชายในชุดนักเรียนสะพายกระเป๋าสีเขียว"
+      }
+    };
+
     let state = loadState();
     let activePanel = "map";
     let activeZone = "garden";
@@ -2160,16 +2248,41 @@
           playerName: typeof saved.playerName === "string" ? saved.playerName : "",
           playerClass: typeof saved.playerClass === "string" ? saved.playerClass : "",
           playerNumber: typeof saved.playerNumber === "string" ? saved.playerNumber : "",
+          playerCharacter: saved.playerCharacter === "male" ? "male" : "female",
           resultSubmitted: Boolean(saved.resultSubmitted),
           resultSubmissionId: typeof saved.resultSubmissionId === "string" ? saved.resultSubmissionId : ""
         };
       } catch (error) {
-        return { points: 1250, completed: ["school", "canteen"], classroomScore: 20, resolvedIssues: [], cafeteriaScore: 60, resolvedCafeteriaIssues: [], gardenScore: 110, gardenIdea: "", gardenActions: [], gardenSubmitted: false, creatorScore: 160, creatorDraft: { title: "", problem: "", solution: "", campaign: "", laudato: "" }, creatorLaunched: false, pitchScore: 200, pitchDraft: { problem: "", cause: "", solution: "", result: "", realUse: "" }, pitchPresented: false, questScore: 250, questPromise: "", questActions: [], questCommitted: false, playerName: "", playerClass: "", playerNumber: "", resultSubmitted: false, resultSubmissionId: "" };
+        return { points: 1250, completed: ["school", "canteen"], classroomScore: 20, resolvedIssues: [], cafeteriaScore: 60, resolvedCafeteriaIssues: [], gardenScore: 110, gardenIdea: "", gardenActions: [], gardenSubmitted: false, creatorScore: 160, creatorDraft: { title: "", problem: "", solution: "", campaign: "", laudato: "" }, creatorLaunched: false, pitchScore: 200, pitchDraft: { problem: "", cause: "", solution: "", result: "", realUse: "" }, pitchPresented: false, questScore: 250, questPromise: "", questActions: [], questCommitted: false, playerName: "", playerClass: "", playerNumber: "", playerCharacter: "female", resultSubmitted: false, resultSubmissionId: "" };
       }
     }
 
     function saveState() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function renderCharacterSelection() {
+      const character = characterProfiles[state.playerCharacter] ? state.playerCharacter : "female";
+      const profile = characterProfiles[character];
+      state.playerCharacter = character;
+      document.querySelectorAll("[data-character]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.character === character));
+      });
+      const preview = document.querySelector("#registrationCharacterPreview");
+      const mapImage = document.querySelector("#mapPlayerCharacterImage");
+      preview.src = profile.src;
+      preview.alt = profile.previewAlt;
+      mapImage.src = profile.src;
+      mapImage.alt = profile.mapAlt;
+      document.querySelector("#mapPlayerCharacter").setAttribute("aria-label", `ตัวละครผู้เล่น ${profile.label}ผู้พิทักษ์บ้านส่วนรวม`);
+      document.querySelector("#playerAvatar").style.backgroundImage = `url("${profile.src}")`;
+    }
+
+    function selectPlayerCharacter(character) {
+      if (!characterProfiles[character]) return;
+      state.playerCharacter = character;
+      saveState();
+      renderCharacterSelection();
     }
 
     function formatNumber(number) {
@@ -2189,6 +2302,7 @@
       document.querySelector("#playerName").value = state.playerName;
       document.querySelector("#playerClass").value = state.playerClass;
       document.querySelector("#playerNumber").value = state.playerNumber;
+      renderCharacterSelection();
       setScreen("registrationScreen");
       requestAnimationFrame(() => document.querySelector("#playerName").focus());
     }
@@ -2222,6 +2336,7 @@
           name: state.playerName,
           room: state.playerClass,
           number: state.playerNumber,
+          character: state.playerCharacter,
           alias: "ผู้พิทักษ์บ้านส่วนรวม"
         },
         score: 250,
@@ -2300,7 +2415,7 @@
     }
 
     function playAgain() {
-      const profile = { playerName: state.playerName, playerClass: state.playerClass, playerNumber: state.playerNumber };
+      const profile = { playerName: state.playerName, playerClass: state.playerClass, playerNumber: state.playerNumber, playerCharacter: state.playerCharacter };
       localStorage.removeItem(STORAGE_KEY);
       state = loadState();
       Object.assign(state, profile);
@@ -2912,6 +3027,9 @@
     document.querySelector("#questForm").addEventListener("submit", submitQuest);
     document.querySelector("#startGameButton").addEventListener("click", openRegistration);
     document.querySelector("#registrationForm").addEventListener("submit", submitRegistration);
+    document.querySelectorAll("[data-character]").forEach((button) => {
+      button.addEventListener("click", () => selectPlayerCharacter(button.dataset.character));
+    });
     document.querySelector("#certificateButton").addEventListener("click", () => toggleCertificate(true));
     document.querySelector("#saveResultButton").addEventListener("click", submitResult);
     document.querySelector("#certificateClose").addEventListener("click", () => toggleCertificate(false));
@@ -2946,6 +3064,7 @@
       }
     });
 
+    renderCharacterSelection();
     renderProgress();
     renderClassroom();
     renderCafeteria();
